@@ -1,0 +1,9 @@
+{
+  "idf.portWin": "COM58",
+  "idf.espIdfPathWin": "C:\\Users\\linzr\\esp\\v5.2.3\\esp-idf",
+  "idf.toolsPathWin": "e:\\esp-idf\\tools",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.flashType": "UART"
+}

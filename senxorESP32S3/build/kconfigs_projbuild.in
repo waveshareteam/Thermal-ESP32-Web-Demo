@@ -1,6 +1,0 @@
-source "C:/Users/linzr/esp/v5.2.3/esp-idf/components/bootloader/Kconfig.projbuild"
-source "C:/Users/linzr/esp/v5.2.3/esp-idf/components/esp_app_format/Kconfig.projbuild"
-source "C:/Users/linzr/esp/v5.2.3/esp-idf/components/esp_rom/Kconfig.projbuild"
-source "C:/Users/linzr/esp/v5.2.3/esp-idf/components/esptool_py/Kconfig.projbuild"
-source "C:/Users/linzr/esp/v5.2.3/esp-idf/components/partition_table/Kconfig.projbuild"
-source "H:/file_products/Thermal_Camera_ESP32 Module/Thermal-ESP32-Demo/Source_Codes/senxorESP32S3/main/Kconfig.projbuild"
