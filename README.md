@@ -39,7 +39,7 @@ MIT. SenXorLib (c) Meridian Innovation.
 
 
 ## Sample Output
-### SenXorEVKViewer streaming thermal image:
+### IP/Thermal webpage thermal image:
 <p align="left">
     <img width="250" src="./img/Thermal_web_sample.jpg"> 
 </p>
