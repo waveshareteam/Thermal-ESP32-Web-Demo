@@ -18,10 +18,10 @@ uint8_t SPI_Tx_Done = 0;
 
 //private:
 static spi_device_handle_t mHandler;					//SPI handler
-static lldesc_t *dmaDescTx;								//Address of DMA TX descriptor
-static lldesc_t *dmaDescRx;								//Address of DMA RX descriptor
-static int rx_dma_ch;									//RX Channel allocated for a SPI transaction
-static int tx_dma_ch;									//TX Channel allocated for a SPI transaction
+static lldesc_t *dmaDescTx = NULL;						//Address of DMA TX descriptor (unused since ESP-IDF v5.3)
+static lldesc_t *dmaDescRx = NULL;						//Address of DMA RX descriptor (unused since ESP-IDF v5.3)
+static int rx_dma_ch = -1;								//RX Channel allocated for a SPI transaction (unused since ESP-IDF v5.3)
+static int tx_dma_ch = -1;								//TX Channel allocated for a SPI transaction (unused since ESP-IDF v5.3)
 static uint32_t selectSPISpd(const uint8_t sel);		//Select SPI clock speed by selection
 
 /******************************************************************************
@@ -53,14 +53,11 @@ void Drv_SPI_Init(void)
 		ESP_LOGE(STAG,"%s",esp_err_to_name(ret));
 	}// End if-else
 
-	dmaDescTx = spi_bus_get_attr(SPI2_HOST)->dmadesc_tx;						//Obtain the address of DMA TX Descriptor
-	dmaDescRx = spi_bus_get_attr(SPI2_HOST)->dmadesc_rx;						//Obtain the address of DMA RX Descriptor
-	tx_dma_ch = spi_bus_get_attr(SPI2_HOST)->tx_dma_chan;						//Obtain the id of TX channel
-	rx_dma_ch = spi_bus_get_attr(SPI2_HOST)->rx_dma_chan;						//Obtain the id of RX channel
-
-	ESP_LOGI(STAG,SPI_DMA_INIT,tx_dma_ch,rx_dma_ch);
-	Drv_SPI_DMA_PrepDesc(dummy, dataBuff_dma, DEFAULT_SPI_LENGTH);
-
+	/* NOTE: Since ESP-IDF v5.3, the SPI driver no longer exposes its internal DMA
+	 * descriptors/channels through spi_bus_get_attr() (they were moved into the
+	 * private spi_dma_ctx_t). The DMA-based transfer path (Drv_SPI_DMA_Transmit)
+	 * is not used by this firmware, so the DMA context is left uninitialised and
+	 * DMA descriptor preparation is skipped here. */
 }
 /******************************************************************************
  * @brief       Drv_SPI_SENXOR_Init
@@ -267,7 +264,7 @@ uint16_t Drv_SPI_Read(void)
  * @return      None
  * @details     Write via SPI direct mode. This function is ISR safe.
  *****************************************************************************/
-void IRAM_ATTR Drv_SPI_Write(void)
+void Drv_SPI_Write(void)
 {
 
 	GPSPI2.dma_int_clr.trans_done = 1;						 //Clear SPI transfer done interrupt bit
@@ -312,7 +309,7 @@ void Drv_SPI_Senxor_Write_8Bit(const uint8_t data)
  * @details     SPI Operation via Direct mode. This function is ISR safe and designed to
  *				get SenXor's frame after data_AV interrupt
  *****************************************************************************/
-uint16_t IRAM_ATTR Drv_SPI_Transmit(void)
+uint16_t Drv_SPI_Transmit(void)
 {
 	// GPSPI2.dma_int_clr.trans_done = 1;						 //Clear SPI transfer done interrupt bit
 	// GPSPI2.ms_dlen.ms_data_bitlen = DEFAULT_SPI_LENGTH-1;	 //Configure data length (in bits)
@@ -375,8 +372,14 @@ static uint32_t selectSPISpd(const uint8_t sel)
  * @details     SPI Operation via DMA. This function is ISR safe and designed to
  *				get SenXor's frame after data_AV interrupt
  *****************************************************************************/
-uint16_t IRAM_ATTR Drv_SPI_DMA_Transmit(void)
+uint16_t Drv_SPI_DMA_Transmit(void)
 {
+	/* DMA context is unavailable since ESP-IDF v5.3, fall back to the
+	 * register-based (non-DMA) transfer path. */
+	if (dmaDescTx == NULL || dmaDescRx == NULL || tx_dma_ch < 0 || rx_dma_ch < 0)
+	{
+		return Drv_SPI_Transmit();
+	}
 
 	gdma_ll_tx_set_desc_addr(&GDMA, tx_dma_ch, (uint32_t)dmaDescTx);	//Store inlink descriptor's address
 	gdma_ll_tx_start(&GDMA, tx_dma_ch);
@@ -426,8 +429,14 @@ void Drv_SPI_DMA_Disable(void)
  * @return      None
  * @details    Prepare data to DMA descriptor
  *****************************************************************************/
-void Drv_SPI_DMA_PrepDesc(uint16_t *txBuff, uint16_t *rxBuff,const int dataLen)
+void Drv_SPI_DMA_PrepDesc(uint8_t *txBuff, uint8_t *rxBuff,const int dataLen)
 {
+	/* DMA context is unavailable since ESP-IDF v5.3, nothing to prepare. */
+	if (dmaDescTx == NULL || dmaDescRx == NULL || tx_dma_ch < 0 || rx_dma_ch < 0)
+	{
+		return;
+	}
+
 	const int dma_dataLen = ((dataLen + 7) / 8);						//DMA descriptor data length
 
 	lldesc_setup_link(dmaDescTx, txBuff, dma_dataLen, false);			//Link TX descriptor with buffer.

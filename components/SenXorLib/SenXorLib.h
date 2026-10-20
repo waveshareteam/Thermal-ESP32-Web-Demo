@@ -98,6 +98,7 @@ uint16_t* DataFrameGetPointer (void);
 
 void Read_AGC_LUT(void);
 
+void RegisterSetBooting(uint8_t SetClear);
 #endif// __LIBRARY_H__
 
 

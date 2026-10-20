@@ -12,10 +12,12 @@
 #include <freertos/task.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "SenXorLib.h"
 #include "Customer_Interface.h"
 
 extern bool senxorTask_GetLatestFrame(uint16_t *frame, size_t framePixelCount, uint32_t *frameNumber);
+extern bool senxorTask_GetLatestFrameNumber(uint32_t *frameNumber);
 
 EXT_RAM_BSS_ATTR static uint16_t g_FrameBuf[5040];
 
@@ -94,6 +96,8 @@ static const char THERMAL_HTML_PAGE[] =
 "var W=80,H=62,S=4,CM=0,AS=!0,gMin=1e9,gMax=-1e9,lt=0,fc=0,ft=0,NR=3,Tfmt=0,Tres=10,ema=null;"
 "var cv=document.getElementById('c'),cx=cv.getContext('2d');"
 "cv.width=W*S;cv.height=H*S;"
+"var oc=document.createElement('canvas'),ox,img;"
+"oc.width=W;oc.height=H;ox=oc.getContext('2d');img=cx.createImageData(W,H);"
 "function mc(s){"
 "var a=new Uint8Array(768),i,j,lt,p0,r0,g0,b0,p1,r1,g1,b1;"
 "for(i=0;i<256;i++){"
@@ -133,39 +137,44 @@ static const char THERMAL_HTML_PAGE[] =
 "if(mn<gMin)gMin=mn;if(mx>gMax)gMax=mx;"
 "var r0=AS?mn:gMin,r1=AS?mx:gMax;"
 "if(r1<=r0)r1=r0+1;"
-"var rng=r1-r0,cm=cmaps[CM],img=cx.createImageData(W,H);"
+"var rng=r1-r0,cm=cmaps[CM];"
 "for(var y=0;y<H;y++)for(var x=0;x<W;x++){"
 "var vi=ema[y*W+x];if(vi>65500)vi=r0;"
 "var ti=((vi-r0)/rng)*255;if(ti<0)ti=0;if(ti>255)ti=255;"
 "ti=ti|0;var p=(y*W+x)*4;"
 "img.data[p]=cm[ti];img.data[p+1]=cm[256+ti];img.data[p+2]=cm[512+ti];img.data[p+3]=255;}"
-"var oc=document.createElement('canvas');oc.width=W;oc.height=H;"
-"oc.getContext('2d').putImageData(img,0,0);"
-"cx.clearRect(0,0,cv.width,cv.height);cx.drawImage(oc,0,0,W*S,H*S);"
+"ox.putImageData(img,0,0);"
+"cx.drawImage(oc,0,0,W*S,H*S);"
 "document.getElementById('tmin').textContent=K(mn).toFixed(1);"
 "document.getElementById('tmax').textContent=K(mx).toFixed(1);"
 "document.getElementById('smin').textContent=K(r0).toFixed(1)+'\\u00b0C';"
 "document.getElementById('smax').textContent=K(r1).toFixed(1)+'\\u00b0C';"
 "var cx2=Math.floor(W/2),cy2=Math.floor(H/2);"
 "document.getElementById('tctr').textContent=K(ema[cy2*W+cx2]).toFixed(1);}"
+"var lastFrame='';"
 "function P(){"
-"fetch('/thermal/frame').then(function(r){"
+"var url='/thermal/frame'+(lastFrame===''?'':'?since='+lastFrame);"
+"fetch(url).then(function(r){"
+"if(r.status===204)return null;"
 "if(!r.ok)throw Error('HTTP '+r.status);"
 "var h=r.headers.get('X-Temp-Res');"
 "if(h){var p=h.split(',');Tres=+p[0]||10;Tfmt=+p[1]||0;}"
+"var f=r.headers.get('X-Frame-Number');"
 "document.getElementById('d').className='dot ok';"
 "document.getElementById('st').textContent='Live';"
 "document.getElementById('dbg').textContent='';"
-"return r.arrayBuffer();})"
-".then(function(b){var n=performance.now();"
+"return r.arrayBuffer().then(function(b){return {data:b,frame:f};});})"
+".then(function(res){if(!res)return;"
+"if(res.frame)lastFrame=res.frame;"
+"var n=performance.now();"
 "if(lt){fc++;if(n-ft>=1000){var fps=Math.round(fc*1000/(n-ft));"
 "document.getElementById('fps').textContent='FPS: '+fps;fc=0;ft=n;}}else ft=n;lt=n;"
-"var d=new Uint16Array(b);"
+"var d=new Uint16Array(res.data);"
 "R(d);})"
 ".catch(function(e){"
 "document.getElementById('d').className='dot';"
 "document.getElementById('st').textContent='Offline';})"
-".finally(function(){setTimeout(P,50);});}"
+".finally(function(){setTimeout(P,20);});}"
 "P();"
 "</script></body></html>";
 /* ────────────────────────────────────────────────────────────────
@@ -330,6 +339,33 @@ static esp_err_t thermal_frame_get_handler(httpd_req_t *req)
 {
     g_frame_req_count++;
 
+    uint32_t latestFrameNum = 0;
+    if (!senxorTask_GetLatestFrameNumber(&latestFrameNum))
+    {
+        g_frame_empty_count++;
+        httpd_resp_set_type(req, "application/octet-stream");
+        httpd_resp_set_hdr(req, "Cache-Control", "no-cache");
+        httpd_resp_send(req, NULL, 0);
+        return ESP_OK;
+    }
+
+    char query[32];
+    char sinceText[12];
+    if (httpd_req_get_url_query_str(req, query, sizeof(query)) == ESP_OK &&
+        httpd_query_key_value(query, "since", sinceText, sizeof(sinceText)) == ESP_OK)
+    {
+        char *end = NULL;
+        unsigned long sinceFrame = strtoul(sinceText, &end, 10);
+        if (end != sinceText && *end == '\0' && sinceFrame <= UINT32_MAX &&
+            (uint32_t)sinceFrame == latestFrameNum)
+        {
+            httpd_resp_set_status(req, "204 No Content");
+            httpd_resp_set_hdr(req, "Cache-Control", "no-cache");
+            httpd_resp_send(req, NULL, 0);
+            return ESP_OK;
+        }
+    }
+
     /* Use mutex-protected snapshot (separate from TCP queue) */
     uint32_t frameNum = 0;
     if (!senxorTask_GetLatestFrame(g_FrameBuf, 5040, &frameNum))
@@ -355,6 +391,9 @@ static esp_err_t thermal_frame_get_handler(httpd_req_t *req)
     httpd_resp_set_hdr(req, "Cache-Control", "no-cache");
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_set_hdr(req, "X-Temp-Res", hdrVal);
+    char frameNumHeader[12];
+    snprintf(frameNumHeader, sizeof(frameNumHeader), "%lu", (unsigned long)frameNum);
+    httpd_resp_set_hdr(req, "X-Frame-Number", frameNumHeader);
 
     /* Send only the image portion (skip 80-word metadata header) */
     httpd_resp_send(req, (const char *)&g_FrameBuf[THERMAL_IMAGE_OFFSET], THERMAL_IMAGE_SIZE * sizeof(uint16_t));

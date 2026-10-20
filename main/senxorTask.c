@@ -24,7 +24,6 @@ EXT_RAM_BSS_ATTR QueueHandle_t senxorFrameQueue = NULL;
 
 TaskHandle_t senxorTaskHandle = NULL;
 //private:
-EXT_RAM_BSS_ATTR static senxorFrame mSenxorFrameObj;
 EXT_RAM_BSS_ATTR static senxorFrame mLatestFrameObj;
 static SemaphoreHandle_t latestFrameMutex = NULL;
 static uint32_t latestFrameNumber = 0;
@@ -50,6 +49,16 @@ bool senxorTask_GetLatestFrame(uint16_t *frame, size_t framePixelCount, uint32_t
         memcpy(frame, mLatestFrameObj.mFrame, copyPixels * sizeof(uint16_t));
         if (frameNumber) *frameNumber = latestFrameNumber;
     }
+    xSemaphoreGive(latestFrameMutex);
+    return isValid;
+}
+
+bool senxorTask_GetLatestFrameNumber(uint32_t *frameNumber)
+{
+    if (latestFrameMutex == NULL || frameNumber == NULL) return false;
+    xSemaphoreTake(latestFrameMutex, portMAX_DELAY);
+    const bool isValid = latestFrameValid;
+    if (isValid) *frameNumber = latestFrameNumber;
     xSemaphoreGive(latestFrameMutex);
     return isValid;
 }
@@ -131,13 +140,11 @@ void senxorTask(void * pvParameters)
 #ifdef CONFIG_MI_SENXOR_DBG
 				printSenXorLog(senxorData);
 #endif
-				memcpy(mSenxorFrameObj.mFrame,senxorData,sizeof(mSenxorFrameObj.mFrame));	//Get a copy of thermal frame
-				
 				/* Update thread-safe snapshot for web/API consumers */
 				if(latestFrameMutex != NULL)
 				{
 					xSemaphoreTake(latestFrameMutex, portMAX_DELAY);
-					memcpy(mLatestFrameObj.mFrame, mSenxorFrameObj.mFrame, sizeof(mLatestFrameObj.mFrame));
+					memcpy(mLatestFrameObj.mFrame, senxorData, sizeof(mLatestFrameObj.mFrame));
 					++latestFrameNumber;
 					latestFrameValid = true;
 					xSemaphoreGive(latestFrameMutex);
@@ -152,7 +159,7 @@ void senxorTask(void * pvParameters)
 			vTaskDelay(pdMS_TO_TICKS(200));
 		}//End if
 
-		vTaskDelay(1);  /* Yield to other tasks; sensor capture is blocking so delay doesn't matter */
+		taskYIELD();
 	}//End for
 }//End senxorTask
 

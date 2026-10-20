@@ -9,19 +9,6 @@
 
 /*
  * ***********************************************************************
- * @brief       BootButton_Handler
- * @param       None
- * @return      None
- * @details     ISR routine for Boot button
- *****************************************************************************/
-
-static void IRAM_ATTR BootButton_Handler(void* arg)
-{
-	NVS_PartErase();
-}
-
-/*
- * ***********************************************************************
  * @brief       DrvGPIO_init
  * @param       None
  * @return      None

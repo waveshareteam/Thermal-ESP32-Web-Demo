@@ -2,6 +2,13 @@
 
 ESP32-S3 firmware with web-based real-time thermal imaging preview (Meridian Innovation SenXor).
 
+## Build Requirements
+
+- ESP-IDF **v5.4.4** (the project is configured and verified with this version)
+- ESP32-S3 target
+
+Other ESP-IDF versions have not been verified. Select ESP-IDF v5.4.4 in your development environment before configuring or building the project.
+
 ## Flashing
 
 Single merged firmware file:
@@ -43,4 +50,3 @@ MIT. SenXorLib (c) Meridian Innovation.
 <p align="left">
     <img width="250" src="./img/Thermal_web_sample.jpg"> 
 </p>
-

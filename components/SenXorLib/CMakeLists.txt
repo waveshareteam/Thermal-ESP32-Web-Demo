@@ -1,6 +1,6 @@
 message("========================================")
 message("libSenXor for C ")
-message("2023 Meridian Innovation. All rights reserved.")
+message("2024 Meridian Innovation. All rights reserved.")
 message("========================================")
 
 #

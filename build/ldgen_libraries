@@ -1,76 +1,96 @@
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/xtensa/libxtensa.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_ringbuf/libesp_ringbuf.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/efuse/libefuse.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_mm/libesp_mm.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/driver/libdriver.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_pm/libesp_pm.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/mbedtls/libmbedtls.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_bootloader_format/libesp_bootloader_format.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_app_format/libesp_app_format.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/bootloader_support/libbootloader_support.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_partition/libesp_partition.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/app_update/libapp_update.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/spi_flash/libspi_flash.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/pthread/libpthread.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_system/libesp_system.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_rom/libesp_rom.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/hal/libhal.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/log/liblog.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/heap/libheap.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/soc/libsoc.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_hw_support/libesp_hw_support.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/freertos/libfreertos.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/newlib/libnewlib.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/cxx/libcxx.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_common/libesp_common.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_timer/libesp_timer.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/app_trace/libapp_trace.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_event/libesp_event.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/nvs_flash/libnvs_flash.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_phy/libesp_phy.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/vfs/libvfs.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/lwip/liblwip.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_netif/libesp_netif.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/wpa_supplicant/libwpa_supplicant.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_coex/libesp_coex.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_wifi/libesp_wifi.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/bt/libbt.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/unity/libunity.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/cmock/libcmock.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/console/libconsole.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/http_parser/libhttp_parser.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp-tls/libesp-tls.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_adc/libesp_adc.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_gdbstub/libesp_gdbstub.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_hid/libesp_hid.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/tcp_transport/libtcp_transport.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_http_client/libesp_http_client.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_http_server/libesp_http_server.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_https_ota/libesp_https_ota.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_psram/libesp_psram.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_lcd/libesp_lcd.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/protobuf-c/libprotobuf-c.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/protocomm/libprotocomm.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/esp_local_ctrl/libesp_local_ctrl.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/espcoredump/libespcoredump.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/wear_levelling/libwear_levelling.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/sdmmc/libsdmmc.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/fatfs/libfatfs.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/json/libjson.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/mqtt/libmqtt.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/nvs_sec_provider/libnvs_sec_provider.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/perfmon/libperfmon.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/spiffs/libspiffs.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/touch_element/libtouch_element.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/ulp/libulp.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/usb/libusb.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/espressif__tinyusb/libespressif__tinyusb.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/espressif__esp_tinyusb/libespressif__esp_tinyusb.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/espressif__led_strip/libespressif__led_strip.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/espressif__esp_lcd_gc9a01/libespressif__esp_lcd_gc9a01.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/net/libnet.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/util/libutil.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/drivers/libdrivers.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/Applications/libApplications.a
-H:/github repository/Thermal-ESP32-Demo/build/esp-idf/main/libmain.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/xtensa/libxtensa.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_gpio/libesp_driver_gpio.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_pm/libesp_pm.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/mbedtls/libmbedtls.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_app_format/libesp_app_format.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_bootloader_format/libesp_bootloader_format.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/app_update/libapp_update.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_partition/libesp_partition.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/efuse/libefuse.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/bootloader_support/libbootloader_support.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_mm/libesp_mm.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/spi_flash/libspi_flash.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_system/libesp_system.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_common/libesp_common.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_rom/libesp_rom.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/hal/libhal.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/log/liblog.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/heap/libheap.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/soc/libsoc.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_security/libesp_security.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_hw_support/libesp_hw_support.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/freertos/libfreertos.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/newlib/libnewlib.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/pthread/libpthread.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/cxx/libcxx.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_timer/libesp_timer.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_gptimer/libesp_driver_gptimer.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_ringbuf/libesp_ringbuf.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_uart/libesp_driver_uart.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/app_trace/libapp_trace.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_event/libesp_event.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/nvs_flash/libnvs_flash.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_pcnt/libesp_driver_pcnt.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_spi/libesp_driver_spi.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_mcpwm/libesp_driver_mcpwm.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_i2s/libesp_driver_i2s.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/sdmmc/libsdmmc.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_sdmmc/libesp_driver_sdmmc.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_sdspi/libesp_driver_sdspi.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_rmt/libesp_driver_rmt.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_tsens/libesp_driver_tsens.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_sdm/libesp_driver_sdm.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_i2c/libesp_driver_i2c.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_ledc/libesp_driver_ledc.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_usb_serial_jtag/libesp_driver_usb_serial_jtag.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/driver/libdriver.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_phy/libesp_phy.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_vfs_console/libesp_vfs_console.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/vfs/libvfs.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/lwip/liblwip.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_netif/libesp_netif.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/wpa_supplicant/libwpa_supplicant.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_coex/libesp_coex.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_wifi/libesp_wifi.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_gdbstub/libesp_gdbstub.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/bt/libbt.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/unity/libunity.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/cmock/libcmock.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/console/libconsole.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/http_parser/libhttp_parser.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp-tls/libesp-tls.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_adc/libesp_adc.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_driver_cam/libesp_driver_cam.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_psram/libesp_psram.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_hid/libesp_hid.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/tcp_transport/libtcp_transport.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_http_client/libesp_http_client.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_http_server/libesp_http_server.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_https_ota/libesp_https_ota.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_https_server/libesp_https_server.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_lcd/libesp_lcd.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/protobuf-c/libprotobuf-c.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/protocomm/libprotocomm.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/esp_local_ctrl/libesp_local_ctrl.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/espcoredump/libespcoredump.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/wear_levelling/libwear_levelling.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/fatfs/libfatfs.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/json/libjson.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/mqtt/libmqtt.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/nvs_sec_provider/libnvs_sec_provider.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/perfmon/libperfmon.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/rt/librt.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/spiffs/libspiffs.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/touch_element/libtouch_element.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/ulp/libulp.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/usb/libusb.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/espressif__tinyusb/libespressif__tinyusb.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/espressif__esp_tinyusb/libespressif__esp_tinyusb.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/espressif__led_strip/libespressif__led_strip.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/espressif__esp_lcd_gc9a01/libespressif__esp_lcd_gc9a01.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/net/libnet.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/util/libutil.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/drivers/libdrivers.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/Applications/libApplications.a
+H:/github-repository/Thermal-ESP32-Web-Demo/build/esp-idf/main/libmain.a

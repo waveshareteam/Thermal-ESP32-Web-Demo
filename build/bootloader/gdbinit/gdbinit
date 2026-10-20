@@ -1,0 +1,2 @@
+source H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader/gdbinit/symbols
+source H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader/gdbinit/connect

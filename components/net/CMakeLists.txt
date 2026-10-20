@@ -1,7 +1,7 @@
 message("================================================")
 message("Component to be configured: " ${COMPONENT_NAME})
 message("================================================")
-set(src "src/restServer.c" "src/thermal_web.c" )
+set(src "src/restServer.c" "src/thermal_web.c")
 message("Components to be registered: ")
 message(${src})
 idf_component_register(	SRCS ${src}

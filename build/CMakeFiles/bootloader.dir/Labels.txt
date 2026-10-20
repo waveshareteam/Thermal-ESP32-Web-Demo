@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-H:/github repository/Thermal-ESP32-Demo/build/CMakeFiles/bootloader
-H:/github repository/Thermal-ESP32-Demo/build/CMakeFiles/bootloader.rule
-H:/github repository/Thermal-ESP32-Demo/build/CMakeFiles/bootloader-complete.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-H:/github repository/Thermal-ESP32-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/CMakeFiles/bootloader
+H:/github-repository/Thermal-ESP32-Web-Demo/build/CMakeFiles/bootloader.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/CMakeFiles/bootloader-complete.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+H:/github-repository/Thermal-ESP32-Web-Demo/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

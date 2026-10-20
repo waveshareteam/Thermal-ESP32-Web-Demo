@@ -278,21 +278,16 @@ static void Drv_Blufi_event_handler(esp_blufi_cb_event_t event, esp_blufi_cb_par
  **************************************************************************/
 void Drv_BT_Init()
 {
-	esp_err_t ret = esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT);
-	if (ret != ESP_OK && ret != ESP_ERR_INVALID_STATE) {
-		ESP_LOGE(BTTAG, "BT mem release failed: %s", esp_err_to_name(ret));
-		return;
-	}
+	ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
 
 	//Init BT
 	esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
 
-	ret = esp_bt_controller_init(&bt_cfg);
+	esp_err_t ret = esp_bt_controller_init(&bt_cfg);
 
 	if (ret)
 	{
 		ESP_LOGE(BTTAG,BT_ERR_CTRL_INIT_FAIL, esp_err_to_name(ret));
-		return;
 	}
 
 	//Using bluetooth low energy

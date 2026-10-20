@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <esp_log.h>
 #include "MCU_Dependent.h"
 #include "SenXorLib.h"
 #include "SenXor_FLASH.h"
@@ -32,6 +33,7 @@ uint16_t* result;
 // uint16_t STARKBuff[FILTER_BUFFER];
 // uint16_t result[FILTER_BUFFER];
 #endif
+static const char *FILTER_TAG = "FilterInit";
 uint16_t minTemp;
 uint16_t maxTemp;
 uint8_t kernelSize=1;
@@ -41,6 +43,11 @@ union FP16_union {
   float           fp;            /* Floating-point value */
   unsigned long   ul;           /* Unsigned long value */
 };
+
+void Host_I2C_RX_Event(void)
+{
+	/* This firmware does not expose the host I2C register-command interface. */
+}
 
 /******************************************************************************
  * @brief       Application_Version
@@ -68,8 +75,6 @@ int ApplicationReadVersion (int Address)
  *****************************************************************************/
 int Customer_Interface_Read_Registers (int Address)
 {
-	int tmpbyte = 0xFF;
-
 	switch (Address) 
 	{
 		case 0x00:
@@ -196,25 +201,34 @@ void Initialize_Filter(void)
 {
 #ifdef MEDIAN_STARK
 
+	const size_t filterBufferSize = FILTER_BUFFER * sizeof(uint16_t);
+	ESP_LOGI(FILTER_TAG, "Allocating filter buffers: %u bytes each; PSRAM free: %u bytes",
+		(unsigned int)filterBufferSize,
+		(unsigned int)heap_caps_get_free_size(MALLOC_CAP_SPIRAM));
 	STARKBuff = heap_caps_malloc(FILTER_BUFFER*sizeof(uint16_t), MALLOC_CAP_SPIRAM);
 	if(STARKBuff == 0 )
 	{
-		free(STARKBuff);
+		ESP_LOGE(FILTER_TAG, "Failed to allocate STARK buffer (%u bytes)",
+			(unsigned int)filterBufferSize);
 		return;
 	}
 
 	result = heap_caps_malloc(FILTER_BUFFER*sizeof(uint16_t), MALLOC_CAP_SPIRAM);
 	if(result == 0 )
 	{
-		free(result);
+		ESP_LOGE(FILTER_TAG, "Failed to allocate filter result buffer (%u bytes)",
+			(unsigned int)filterBufferSize);
 		return;
 	}
+	ESP_LOGI(FILTER_TAG, "Filter buffers allocated");
 
 	 // STARK
-	Acces_Write_Reg(0xB4, 3); 							// avg value set to 3
-	Acces_Write_Reg(0xD0, 3); 							// ENABLE kalman filter
+	ESP_LOGI(FILTER_TAG, "Writing sensor filter registers");
+	Acces_Write_Reg(0xB4, CONFIG_MI_SENXOR_AVG);		// Use configured frame averaging
+	Acces_Write_Reg(0xD0, CONFIG_MI_SENXOR_FILTER_VAL);	// Use configured noise filter
 	Acces_Write_Reg(0xD1, 10); 							// ENABLE kalman filter
 	Acces_Write_Reg(0xD2, 0); 							// ENABLE kalman filter
+	ESP_LOGI(FILTER_TAG, "Sensor filter registers written");
 
 	Image_Processing.MCU_REG_20.GetSet.STARK_Enable =1; // enable stark
 	Image_Processing.MCU_REG_20.GetSet.STARK_auto=1;
@@ -242,11 +256,15 @@ void Initialize_Filter(void)
 	{
 		kernelSize = 1;
 	}
+	ESP_LOGI(FILTER_TAG, "Initializing STARK");
 	STARK_Initialize(Image_Processing.MCU_REG_20.Setting,Image_Processing.MCU_REG_30.Setting,Image_Processing.MCU_REG_21.Setting,Image_Processing.MCU_REG_22.Setting, Image_Processing.MCU_REG_23.Setting, kernelSize,result, STARKBuff);
+	ESP_LOGI(FILTER_TAG, "STARK initialized; initializing median filter");
 
 	MEDIAN_Initialize(Image_Processing.MCU_REG_30.GetSet.MedianFilterEnable,MkernelSize,result);
+	ESP_LOGI(FILTER_TAG, "Median filter initialized; initializing KXMS");
 
 	KXMS_Initialize(Image_Processing.MCU_REG_25.GetSet.KXMS, Image_Processing.MCU_REG_25.GetSet.Roll);
+	ESP_LOGI(FILTER_TAG, "All filters initialized");
 #endif
 
 }
@@ -263,9 +281,6 @@ void Initialize_Filter(void)
 void COnvert_Image_Transfer_Format(uint16_t* buffer, int l_FrameSize)
 {
 	uint16_t i = 0;
-	uint16_t minT = 0xFFFF;
-	uint16_t maxT = 0;
-	uint16_t temp ;
   	float temp_res_divide=10 ;
 
 	union FP16_union temp_data_f16 ;
@@ -379,18 +394,9 @@ void COnvert_Image_Transfer_Format(uint16_t* buffer, int l_FrameSize)
 void COnvert_Image_Transfer_Format_header(uint16_t* ProcessDataFrame_TXBuf)
 
 {
-	uint16_t i = 0;
-
-  	float temp_res_divide=10 ;
 	union FP16_union temp_data_f16 ;
 	float temp_data ;
 	float Celsius_Scale = 273.15;
-	uint16_t Tgain = Acces_Read_Reg(0xB9);
-
-	if((Tgain&0x80) == 0x80)
-	{
-		temp_res_divide=100 ;
-	}
 	switch(Image_Processing.MCU_REG_31.Setting)
 	{
 		case 1:
@@ -599,4 +605,3 @@ void Process_Header(uint16_t* ProcessDataFrame_TXBuf)
 
 	COnvert_Image_Transfer_Format_header(ProcessDataFrame_TXBuf);
 }
-

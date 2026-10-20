@@ -121,7 +121,7 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base,int32_t ev
 	        wifi_event_ap_stadisconnected_t* apDisconnectEvent = (wifi_event_ap_stadisconnected_t*) event_data;
 	        ESP_LOGI(WLANTAG, "%02x:%02x:%02x:%02x:%02x:%02x", MAC2STR(apDisconnectEvent->mac) );
 	        ESP_LOGI(WLANTAG, WLAN_AP_LEFT, apDisconnectEvent->aid);
-	        /* Client left AP - WiFi stack auto-clears the slot, new clients can connect */
+	        //Acces_Write_Reg(0xB1,0);
 	    break;
 	}//End switch
 }
@@ -462,13 +462,7 @@ void Drv_WLAN_Stat_Disconnect(void)
 static void Drv_WLAN_EventGrpInit(void)
 {
 	s_wifi_event_group = xEventGroupCreate();
-	/* Create default event loop if not already created (e.g. by BT/Bluedroid init) */
-	esp_err_t err = esp_event_loop_create_default();
-	if (err == ESP_ERR_INVALID_STATE) {
-		ESP_LOGW(WLANTAG, "Default event loop already exists, reusing.");
-	} else {
-		ESP_ERROR_CHECK(err);
-	}
+	ESP_ERROR_CHECK(esp_event_loop_create_default());		//Create default event loop
 	ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,ESP_EVENT_ANY_ID,&wifi_event_handler,NULL,&instance_any_id));
 	ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,IP_EVENT_STA_GOT_IP,&ip_event_handler,NULL,&instance_got_ip));
 }

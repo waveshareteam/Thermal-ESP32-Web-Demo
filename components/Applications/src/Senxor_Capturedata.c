@@ -34,7 +34,7 @@ extern void CaptureProcessFrame(uint16_t tmp);
  *  			RAM to speed up the operation.
  *****************************************************************************/
 #define BURST_MODE 8							//maximum of allowed write to MCU SPI (MCU FIFO Size)
-void IRAM_ATTR Data_AV_FIFO_Int_Handler(void* arg)
+void Data_AV_FIFO_Int_Handler(void* arg)
 {
 
 	uint8_t Burstmode = BURST_MODE;

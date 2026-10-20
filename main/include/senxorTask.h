@@ -35,5 +35,6 @@ void senxorTask(void * pvParameters);
  * @return true if a valid frame was copied
  */
 bool senxorTask_GetLatestFrame(uint16_t *frame, size_t framePixelCount, uint32_t *frameNumber);
+bool senxorTask_GetLatestFrameNumber(uint32_t *frameNumber);
 
 #endif /* MAIN_INCLUDE_SENXORTASK_H_ */

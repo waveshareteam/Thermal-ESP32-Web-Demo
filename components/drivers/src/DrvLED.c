@@ -14,7 +14,9 @@
 static led_strip_handle_t led_strip;
 
 static void Drv_LED_Gpio_Init();
+#ifdef CONFIG_MI_LED_PWM_EN
 static void Drv_LED_PWM_Init();
+#endif
 static void Drv_LED_Strip_Init();
 static void Drv_LED_Custom_Init();
 /******************************************************************************
@@ -182,9 +184,9 @@ static void Drv_LED_Gpio_Init()
  * @return      None
  * @details     Initialise PWM LED
  *****************************************************************************/
+#ifdef CONFIG_MI_LED_PWM_EN
 static void Drv_LED_PWM_Init()
 {
-#if CONFIG_MI_LED_PWM_EN
 	ESP_LOGI(DRV_LEDTAG,DRV_LED_MODE_PWM);
 	ledc_timer_config_t ledc_timer = {
 		.speed_mode       = LEDC_LOW_SPEED_MODE,
@@ -232,8 +234,8 @@ static void Drv_LED_PWM_Init()
 		ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
 	#endif
 		ledc_fade_func_install(0);
-#endif
 }
+#endif
 
 /******************************************************************************
  * @brief       Drv_LED_Strip_Init

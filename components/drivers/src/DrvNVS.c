@@ -145,7 +145,7 @@ size_t NVS_ReadSize(const char* key)
 	}//End if
 
 	size_t rdSize = 0;
-	esp_err_t err = nvs_get_str(nvs_handler, key, NULL, &rdSize);
+	nvs_get_str(nvs_handler, key, NULL, &rdSize);
 	return rdSize;
 }
 
